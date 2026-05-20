@@ -1,23 +1,18 @@
-/* Dang nhap bang user GDV2 roi chay file nay */
-USE AdventureWorks2008R2;
+USE AdventureWorks2008R2
 GO
 
--- GDV2 xem ten Vendor, TotalDue cua don hang co StockedQty > 100
-SELECT v.Name AS Vendor, h.TotalDue
-FROM Purchasing.PurchaseOrderHeader h
-JOIN Purchasing.PurchaseOrderDetail d ON h.PurchaseOrderID = d.PurchaseOrderID
-JOIN Purchasing.Vendor v ON h.VendorID = v.BusinessEntityID
-WHERE d.StockedQty > 100;
+-- Xem Vendor
+SELECT * FROM Purchasing.Vendor
 GO
 
--- GDV2 doi ten Vendor tuy y (lay 1 dong de test)
-UPDATE TOP (1) Purchasing.Vendor
-SET Name = Name + '_GDV2'
-WHERE BusinessEntityID IN (SELECT TOP 1 BusinessEntityID FROM Purchasing.Vendor ORDER BY BusinessEntityID);
+-- Xem don hang nua dau nam 2008
+SELECT VendorID,TotalDue
+FROM Purchasing.PurchaseOrderHeader
+WHERE DueDate<'2008-07-01'
 GO
 
--- Kiem tra lai
-SELECT TOP 5 BusinessEntityID, Name
-FROM Purchasing.Vendor
-ORDER BY BusinessEntityID;
+-- Doi ten Vendor
+UPDATE Purchasing.Vendor
+SET Name='ABC'
+WHERE BusinessEntityID=1
 GO

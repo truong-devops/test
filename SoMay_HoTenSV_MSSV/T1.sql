@@ -1,15 +1,14 @@
-/* Cua so query T1 - demo giao tac don gian */
-USE AdventureWorks2008R2;
+USE AdventureWorks2008R2
 GO
 
-BEGIN TRAN;
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+BEGIN TRAN
 
-UPDATE TOP (1) Purchasing.PurchaseOrderHeader
-SET Freight = Freight + 1
-WHERE PurchaseOrderID = 1;
+UPDATE Production.Product
+SET ListPrice=ListPrice*1.1
+WHERE Name='Mountain-100'
 
--- De yen cua so nay, qua T2 chay de thay bi cho khoa
-WAITFOR DELAY '00:00:10';
+WAITFOR DELAY '00:00:10'
 
-COMMIT TRAN;
+COMMIT
 GO

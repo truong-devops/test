@@ -1,8 +1,12 @@
-/* Cua so query T2 - chay trong luc T1 dang WAITFOR */
-USE AdventureWorks2008R2;
+USE AdventureWorks2008R2
 GO
 
-SELECT PurchaseOrderID, Freight
-FROM Purchasing.PurchaseOrderHeader
-WHERE PurchaseOrderID = 1;
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+BEGIN TRAN
+
+UPDATE Production.Product
+SET ListPrice=ListPrice-100
+WHERE Name='Mountain-100'
+
+COMMIT
 GO
